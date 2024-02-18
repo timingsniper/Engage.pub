@@ -7,7 +7,7 @@ Talkmate.io is a full-stack application designed as a GPT-based language learnin
 This project has been developed for Peking University undergraduate student graduation thesis **"Design and Implementation of an Interactive Language Learning System Based on GPT"**.
 
 ### 中文
-Talkmate.io是一个设计为基于GPT的语言学习平台的全栈应用程序。
+Talkmate.io是一个设计为基于GPT的语言学习平台的全栈应用。
 
 该项目已经为北京大学本科生毕业论文 **"基于GPT的交互式语言学习系统的设计与实现"** 而开发。
 

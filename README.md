@@ -1,3 +1,58 @@
+# <span>Talkmate.io</span>
+
+## 👨‍💻 Welcome!
+### English
+Talkmate.io is a full-stack application designed as a GPT-based language learning platform.
+
+This project has been developed for Peking University undergraduate student graduation thesis **"Design and Implementation of an Interactive Language Learning System Based on GPT"**.
+
+### 中文
+Talkmate.io是一个设计为基于GPT的语言学习平台的全栈应用程序。
+
+该项目已经为北京大学本科生毕业论文 **"基于GPT的交互式语言学习系统的设计与实现"** 而开发。
+
+### 한국어
+Talkmate.io는 GPT 기반 언어 학습 플랫폼으로 설계된 풀스택 애플리케이션입니다.
+
+이 프로젝트는 북경대학교 본과생 졸업 논문 **"GPT 기반의 상호작용 언어 학습 시스템의 설계 및 구현"** 을 위해 개발되었습니다.
+
+
+<br>
+
+## :pushpin: Features
+
+- TBD
+
+<br>
+
+## :people_hugging: Author
+
+<table>
+  <tr height="150px">
+  <td align="center">
+    <a href="https://github.com/timingsniper"><img height="150px" width="150px" src="https://avatars.githubusercontent.com/u/17792896?v=4"/></a>
+    <br />
+    <a href="https://github.com/timingsniper">Joonwoo Jang （张晙优）</a>
+  </td>
+  </tr>
+</table>
+
+<br>
+
+## :sparkles: Skills & Tech Stack
+
+### Frontend
+
+- React.js
+- Next.js
+- React-Query
+
+### DevOps
+- TBD
+
+<br/>
+
+## 🏃‍♂️ Running Locally
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
@@ -5,32 +60,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, run the development server:
 
 ```bash
-npm run dev
-# or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

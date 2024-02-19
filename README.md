@@ -1,4 +1,4 @@
-# <span>Talkmate.io</span>
+# <span>Talkmate.io (Front-end)</span>
 
 ## 👨‍💻 Welcome!
 ### English
@@ -45,10 +45,9 @@ Talkmate.io는 GPT 기반 언어 학습 플랫폼으로 설계된 풀스택 애�
 
 - React.js
 - Next.js
-- React-Query
 
 ### DevOps
-- TBD
+- AWS Amplify (Docker+S3+Cloudfront CDN)
 
 <br/>
 

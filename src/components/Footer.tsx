@@ -2,9 +2,15 @@ export default function Footer() {
   return (
     <footer className="footer items-center p-4 bg-base-300 text-base-content">
       <aside className="items-center">
-        
         <p>Copyright Joonwoo Jang © 2024 - All right reserved</p>
-        <p>Engage.pub has been developed for Peking University undergraduate student graduation thesis "Design and Implementation of an Interactive Language Learning System Based on GPT".</p>
+        <p>
+          Engage.pub has been developed for Peking University undergraduate
+          student graduation thesis{" "}
+          <strong>
+            "Design and Implementation of an Interactive Language Learning
+            System Based on GPT".
+          </strong>
+        </p>
       </aside>
       <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
         <a>

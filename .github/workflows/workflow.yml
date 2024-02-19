@@ -1,0 +1,21 @@
+name: Production Deployment
+on:
+  push:
+    branches: [dev] 
+jobs:
+  staging: #staging이라는 작업
+    name: Deploy to production # 작업의 이름
+    runs-on: ubuntu-latest # 실행될 작업환경을 말함.
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: ap-northeast-2 
+        #AWS - ECR
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1

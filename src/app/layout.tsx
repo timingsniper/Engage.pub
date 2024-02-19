@@ -8,7 +8,7 @@ import PageView from "@/components/PageView";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: "Talkmate.io",
+  title: "Engage.pub",
   description: "GPT-Driven Language Learning Platform",
 };
 

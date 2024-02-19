@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <Link className="btn btn-ghost text-xl text-[#0077C0]" href={'/'}>Talkmate.io</Link>
+        <Link className="btn btn-ghost text-xl text-[#0077C0]" href={'/'}>Engage.pub</Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">

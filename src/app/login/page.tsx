@@ -20,7 +20,6 @@ export default function Login() {
         password,
         redirect: false,
       });
-      console.log(response);
       if (response?.error) {
         setLoginError(true);
       } else {

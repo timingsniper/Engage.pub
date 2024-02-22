@@ -8,6 +8,7 @@ export const {
   auth,
   signIn,
 } = NextAuth({
+  trustHost: true,
   pages: {
     signIn: "/login",
     newUser: "/signup",

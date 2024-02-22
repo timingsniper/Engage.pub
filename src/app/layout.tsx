@@ -4,8 +4,9 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageView from "@/components/PageView";
+import AuthSession from "./_component/AuthSession";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Engage.pub",
@@ -20,11 +21,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <PageView>
-        {children}
-        </PageView>
-        <Footer />
+        <AuthSession>
+          <Header />
+          <PageView>{children}</PageView>
+          <Footer />
+        </AuthSession>
       </body>
     </html>
   );

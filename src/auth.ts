@@ -32,10 +32,14 @@ export const {
 
         // Setting cookies sent from the backend
         let setCookie = authResponse.headers.get("Set-Cookie");
-        console.log("set-cookie", setCookie);
+        console.log(setCookie);
         if (setCookie) {
           const parsed = cookie.parse(setCookie);
-          cookies().set("connect.sid", parsed["connect.sid"], parsed);
+          console.log(parsed);
+          cookies().set("connect.sid", parsed["connect.sid"], {
+            domain: parsed.Domain,
+            secure: process.env.APP_ENV === 'production'
+          });
         }
 
         // authResponse.ok is still ok even when status is 401, so handling that

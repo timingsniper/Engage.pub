@@ -9,9 +9,15 @@ export default function Header() {
   const router = useRouter();
   const { data: me, status } = useSession();
   const onLogOut = () => {
-    signOut({ redirect: false }).then(() => {
-      router.replace("/");
-    });
+    signOut({ redirect: false })
+      .then(() => {
+        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/logout`, {
+          method: 'post',
+          credentials: 'include',
+        });
+        router.refresh();
+        router.replace('/');
+      });
   };
 
   let authContent;

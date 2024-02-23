@@ -30,18 +30,26 @@ export const {
           }
         );
 
+        // Setting cookies sent from the backend
+        let setCookie = authResponse.headers.get("Set-Cookie");
+        console.log("set-cookie", setCookie);
+        if (setCookie) {
+          const parsed = cookie.parse(setCookie);
+          cookies().set("connect.sid", parsed["connect.sid"], parsed);
+        }
+
         // authResponse.ok is still ok even when status is 401, so handling that
         if (!authResponse.ok || authResponse.status === 401) {
           return null;
         }
-        
+
         const user = await authResponse.json();
 
         return {
           id: user.email,
           name: user.nickname,
           ...user,
-        }
+        };
       },
     }),
   ],

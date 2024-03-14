@@ -6,7 +6,7 @@ type CardProps = {
 
 export default function PartnerCard({ title, description, imgSrc }: CardProps) {
   return (
-    <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="card w-90 bg-base-100 shadow-xl">
       <figure>
         <picture>
           <img src={imgSrc} alt="Shoes" />

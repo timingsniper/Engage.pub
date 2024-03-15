@@ -1,4 +1,4 @@
-import PartnerCard from "@/components/ParterCard";
+import PartnerCard from "@/components/PartnerCard";
 import Selector from "@/components/Selector";
 
 export default function Home() {

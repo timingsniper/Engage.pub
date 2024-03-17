@@ -4,6 +4,7 @@ import useScenarios from "@/api/scenarios/useScenarios";
 import PartnerCard from "@/components/PartnerCard";
 import { useEffect, useRef } from "react";
 import { Scenario } from "@/types/scenario";
+import Selector from "@/components/Selector";
 
 export default function Home() {
   const {
@@ -50,6 +51,7 @@ export default function Home() {
           <a className="underline decoration-sky-500">AI Language partners!</a>
         </p>
       </div>
+      <Selector />
       <div className="grid mx-6 mb-10 justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-6">
         {isLoading
           ? renderSkeletons()

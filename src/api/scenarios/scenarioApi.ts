@@ -9,3 +9,13 @@ export async function getScenarios(pageId: number) {
     throw error;
   }
 }
+
+export async function getSingleScenario(scenarioId: number) {
+  try {
+    const response = await api.get(`/scenario/detail/${scenarioId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching scenario: " + error);
+    throw error;
+  }
+}

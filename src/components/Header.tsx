@@ -4,27 +4,36 @@ import Link from "next/link";
 import Avatar from "./Avatar";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import useUserStore from "@/stores/useUserStore";
+import { syncUserStore } from "@/stores/syncUserStore";
 
 export default function Header() {
   const router = useRouter();
-  const { data: me, status } = useSession();
+  const { status } = useSession();
+  syncUserStore(); // Syncing user status with the session
+  const { user, clearUser } = useUserStore();
   const onLogOut = () => {
-    signOut({ redirect: false })
-      .then(() => {
-        fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/logout`, {
-          method: 'post',
-          credentials: 'include',
-        });
-        router.refresh();
-        router.replace('/');
+    signOut({ redirect: false }).then(() => {
+      clearUser();
+      fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/user/logout`, {
+        method: "post",
+        credentials: "include",
       });
+      router.refresh();
+      router.replace("/");
+    });
   };
+  console.log(user)
 
   let authContent;
   if (status === "loading") {
-    authContent = <span className="loading loading-spinner text-primary"></span>;
-  } else if (me) {
-    authContent = <Avatar nickname={me?.user?.name as string} onLogOut={onLogOut} />;
+    authContent = (
+      <span className="loading loading-spinner text-primary"></span>
+    );
+  } else if (user !== null) {
+    authContent = (
+      <Avatar nickname={user?.name as string} onLogOut={onLogOut} />
+    );
   } else {
     authContent = (
       <Link href="/login" passHref>

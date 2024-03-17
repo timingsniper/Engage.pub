@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 import cookie from "cookie";
+import useUserStore from "./stores/useUserStore";
 
 export const {
   handlers: { GET, POST },
@@ -38,7 +39,7 @@ export const {
           console.log(parsed);
           cookies().set("connect.sid", parsed["connect.sid"], {
             domain: parsed.Domain,
-            secure: process.env.APP_ENV === 'production'
+            secure: process.env.APP_ENV === "production",
           });
         }
 
@@ -48,6 +49,11 @@ export const {
         }
 
         const user = await authResponse.json();
+        useUserStore.getState().setUser({
+          email: user.email,
+          name: user.nickname,
+          ...user,
+        });
 
         return {
           id: user.email,

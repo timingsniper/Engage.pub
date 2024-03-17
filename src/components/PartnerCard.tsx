@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 type CardProps = {
   id: number;
   title: string;
@@ -23,7 +25,9 @@ export default function PartnerCard({
         <p>{description}</p>
         <div className="justify-start text-sm">{`#${id}`}</div>
         <div className="card-actions justify-end">
-          <button className="btn bg-customBlue text-white">Engage!</button>
+          <Link href={`/scenario/${id}`} passHref>
+            <button className="btn bg-customBlue text-white">Engage!</button>
+          </Link>
         </div>
       </div>
     </div>

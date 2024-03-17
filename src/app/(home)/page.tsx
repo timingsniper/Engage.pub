@@ -3,13 +3,7 @@
 import useScenarios from "@/api/scenarios/useScenarios";
 import PartnerCard from "@/components/PartnerCard";
 import { useEffect, useRef } from "react";
-
-interface Scenario {
-  id: number;
-  title: string;
-  settings: string;
-  imgSrc: string;
-}
+import { Scenario } from "@/types/scenario";
 
 export default function Home() {
   const {
@@ -37,18 +31,18 @@ export default function Home() {
   }, [hasNextPage, fetchNextPage]);
 
   const renderSkeletons = () => {
-    return Array(8).fill(
-      <div className="flex flex-col gap-4 w-96">
-        <div className="skeleton h-60 w-full"></div>
-        <div className="skeleton h-4 w-28"></div>
-        <div className="skeleton h-4 w-full"></div>
-        <div className="skeleton h-4 w-full"></div>
+    return Array.from({ length: 8 }, (_, index) => (
+      <div key={index} className="flex flex-col gap-4 w-96">
+        <div className="skeleton h-60 w-full bg-gray-300 animate-pulse"></div>
+        <div className="skeleton h-4 w-28 bg-gray-300 animate-pulse"></div>
+        <div className="skeleton h-4 w-full bg-gray-300 animate-pulse"></div>
+        <div className="skeleton h-4 w-full bg-gray-300 animate-pulse"></div>
       </div>
-    );
+    ));
   };
 
   return (
-    <>
+    <section>
       <div className="flex flex-col justify-center justify-items-center mb-4 min-h-32 font-semibold">
         <p className="text-2xl text-center">
           <a className="underline decoration-pink-500">Engage</a> in a
@@ -66,7 +60,7 @@ export default function Home() {
                   id={scenario.id}
                   title={scenario.title}
                   description={scenario.settings}
-                  imgSrc={"https://picsum.photos/200/300"}
+                  imgSrc={scenario.imgSource}
                 />
               ))
             )}
@@ -74,6 +68,6 @@ export default function Home() {
           {hasNextPage ? "Loading more..." : "You've reached the end!"}
         </div>
       </div>
-    </>
+    </section>
   );
 }

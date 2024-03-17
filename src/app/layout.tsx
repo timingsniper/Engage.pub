@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import PageView from "@/components/PageView";
 import AuthSession from "./_component/AuthSession";
+import ReactQueryProviders from "@/api/useReactQuery";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <AuthSession>
           <Header />
-          <PageView>{children}</PageView>
+          <PageView>
+            <ReactQueryProviders>{children}</ReactQueryProviders>
+          </PageView>
           <Footer />
         </AuthSession>
       </body>

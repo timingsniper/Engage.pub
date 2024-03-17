@@ -8,7 +8,6 @@ export async function middleware() {
   }
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: ["/talk"],
+  matcher: ["/scenario/:path*", "/talk/:path*"],
 };

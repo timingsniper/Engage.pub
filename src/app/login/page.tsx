@@ -9,7 +9,6 @@ export default function Login() {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false);
-  const router = useRouter();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -23,7 +22,7 @@ export default function Login() {
       if (response?.error) {
         setLoginError(true);
       } else {
-        router.replace("/");
+        window.location.href = "/";
       }
     } catch (err) {
       console.error(err);

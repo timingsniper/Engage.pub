@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { devtools } from "zustand/middleware";
 
 interface UserState {
   user: {
@@ -9,10 +10,10 @@ interface UserState {
   clearUser: () => void;
 }
 
-const useUserStore = create<UserState>((set) => ({
+const useUserStore = create<UserState>()(devtools((set) => ({
   user: null,
   setUser: (user) => set(() => ({ user })),
   clearUser: () => set(() => ({ user: null })),
-}));
+})));
 
 export default useUserStore;

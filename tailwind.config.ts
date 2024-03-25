@@ -24,13 +24,13 @@ const config: Config = {
           neutral: "#ff00ff",
           "base-100": "#ffffff",
           info: "#0000ff",
-          success: "#00ff00",
+          success: "#C7EEFF",
           warning: "#00ff00",
           error: "#ff0000",
         },
       },
     ],
   },
-  plugins: [require("daisyui")],
+  plugins: [require("daisyui"), require('tailwindcss-animated')],
 };
 export default config;

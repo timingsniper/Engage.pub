@@ -8,7 +8,11 @@ import ErrorAlert from "@/components/ErrorAlert";
 import ChatInput from "@/components/ChatInput";
 import Loader from "@/components/Loader";
 
-export default function TalkPage({ params: { id } }: { params: { id: number } }) {
+export default function TalkPage({
+  params: { id },
+}: {
+  params: { id: number };
+}) {
   const [showError, setShowError] = useState<boolean>(false);
   const scenarioId = id;
   const messagesEndRef = useRef<HTMLDivElement>(null);

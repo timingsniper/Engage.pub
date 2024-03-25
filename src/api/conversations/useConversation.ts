@@ -14,6 +14,7 @@ export default function useConversation(scenarioId: number) {
       return response.data;
     },
     enabled: !!scenarioId,
+    staleTime: 0,
   });
   return { initialLoading, localConversation, setLocalConversation, refetch };
 }

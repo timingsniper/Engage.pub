@@ -1,7 +1,6 @@
 "use client";
 
 import { ChangeEventHandler, FormEventHandler, useState } from "react";
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import LogInModule from "./_component/LogInModule";
 

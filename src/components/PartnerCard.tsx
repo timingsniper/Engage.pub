@@ -14,7 +14,7 @@ export default function PartnerCard({
   imgSrc,
 }: CardProps) {
   return (
-    <div className="card w-90 bg-base-100 shadow-xl">
+    <div className="card w-5/6 bg-base-100 shadow-xl">
       <figure>
         <picture>
           <img src={imgSrc} alt="Shoes" />

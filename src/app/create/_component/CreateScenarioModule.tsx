@@ -1,6 +1,11 @@
 import { CreateScenarioModuleProps } from "@/types/CreateScenarioProps";
 
 interface CreateScenarioFormProps {
+  imageUrl: string;
+  isLoading: boolean;
+  error: boolean;
+  isPending: boolean;
+  onGenClick: React.MouseEventHandler<HTMLButtonElement>;
   onChangeTitle: React.ChangeEventHandler<HTMLInputElement>;
   onChangeSettings: React.ChangeEventHandler<HTMLTextAreaElement>;
   onChangeAiSetting: React.ChangeEventHandler<HTMLTextAreaElement>;
@@ -15,12 +20,17 @@ export default function CreateScenarioModule({
   aiSetting,
   mission,
   startingMessage,
+  imageUrl,
+  onGenClick,
+  isLoading,
+  error,
+  isPending,
   onChangeTitle,
   onChangeSettings,
   onChangeAiSetting,
   onChangeMission,
   onChangeStartingMessage,
-  onSubmit
+  onSubmit,
 }: CreateScenarioModuleProps & CreateScenarioFormProps) {
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -111,7 +121,8 @@ export default function CreateScenarioModule({
               className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
             >
               <strong>Starting Message</strong> <br />
-              (Conversation will start with the message you give here. Ex: Hi, I'm Jack! How may I help you?)
+              (Conversation will start with the message you give here. Ex: Hi,
+              I'm Jack! How may I help you?)
             </label>
             <textarea
               id="startingMessage"
@@ -122,8 +133,29 @@ export default function CreateScenarioModule({
               required
             />
           </div>
+          <div>
+            <label
+              htmlFor="imageGen"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
+            >
+              <strong>Scenario Image</strong> <br />
+              (Based on the settings you give, an image will be generated for
+              the scenario.)
+            </label>
+            <button type="button" className="btn btn-primary" onClick={onGenClick} disabled={isLoading}>
+              {imageUrl ? "Regenerate Image" : "Generate Image"}
+            </button>
+            {isLoading && (
+              <div className="flex h-screen justify-center justify-items-center">
+                <span className="loading loading-spinner text-primary"></span>
+              </div>
+            )}
+            {error && (<h2>An error has occured.</h2>)}
+            {(!isLoading && imageUrl) && <img src={imageUrl} alt="Scenario Image" />}
+          </div>
           <button
             type="submit"
+            disabled={isPending}
             className="w-full text-white bg-primary hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
           >
             Submit

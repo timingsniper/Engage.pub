@@ -1,6 +1,5 @@
 import { CreateScenarioModuleProps } from "@/types/CreateScenarioProps";
 import { api } from "../APIHandler";
-import useUserStore from "@/stores/useUserStore";
 
 export async function getScenarios(pageId: number) {
   try {
@@ -29,6 +28,7 @@ export async function addScenario({
   aiSetting,
   mission,
   startingMessage,
+  imageUrl,
 }: CreateScenarioModuleProps) {
   try {
     const data = {
@@ -38,11 +38,26 @@ export async function addScenario({
       aiSetting,
       mission,
       startingMessage,
+      imageUrl,
     };
+    console.log(data)
     const response = await api.post(`/scenario`, data);
     return response.data;
   } catch (error) {
     console.error("Error adding scenario: " + error);
+    throw error;
+  }
+}
+
+export async function getScenarioImageGen(settings: string, aiSetting: string) {
+  try {
+    const response = await api.post(`/scenario/imageGen`, {
+      settings,
+      aiSetting,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error generating image: " + error);
     throw error;
   }
 }

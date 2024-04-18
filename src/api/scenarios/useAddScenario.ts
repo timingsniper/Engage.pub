@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 export function useAddScenario() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate: createScenario } = useMutation({
+  const { mutate: createScenario, isPending } = useMutation({
     mutationFn: ({
       authorEmail,
       title,
@@ -14,6 +14,7 @@ export function useAddScenario() {
       aiSetting,
       mission,
       startingMessage,
+      imageUrl,
     }: CreateScenarioModuleProps) =>
       addScenario({
         authorEmail,
@@ -22,6 +23,7 @@ export function useAddScenario() {
         aiSetting,
         mission,
         startingMessage,
+        imageUrl
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scenarios"] });
@@ -33,5 +35,5 @@ export function useAddScenario() {
     },
   });
 
-  return { createScenario };
+  return { createScenario, isPending };
 }

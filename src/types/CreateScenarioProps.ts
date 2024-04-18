@@ -5,4 +5,5 @@ export interface CreateScenarioModuleProps {
   aiSetting: string;
   mission: string;
   startingMessage: string;
+  imageUrl: string;
 }

@@ -1,9 +1,15 @@
 "use client";
 
-import { ChangeEventHandler, FormEventHandler, useState } from "react";
+import {
+  ChangeEventHandler,
+  FormEventHandler,
+  MouseEventHandler,
+  useState,
+} from "react";
 import CreateScenarioModule from "./_component/CreateScenarioModule";
 import { useAddScenario } from "@/api/scenarios/useAddScenario";
 import useUserStore from "@/stores/useUserStore";
+import { getScenarioImageGen } from "@/api/scenarios/scenarioApi";
 
 export default function CreateScenarioPage() {
   const [title, setTitle] = useState<string>("");
@@ -11,8 +17,23 @@ export default function CreateScenarioPage() {
   const [aiSetting, setAiSetting] = useState("");
   const [mission, setMission] = useState("");
   const [startingMessage, setStartingMessage] = useState("");
-  const { createScenario } = useAddScenario();
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const { createScenario, isPending } = useAddScenario();
   const { user } = useUserStore();
+
+  const onGenClick: MouseEventHandler<HTMLButtonElement> = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getScenarioImageGen(settings, aiSetting);
+      setImageUrl(response);
+      setIsLoading(false);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
+  };
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
@@ -23,6 +44,7 @@ export default function CreateScenarioPage() {
       aiSetting,
       mission,
       startingMessage,
+      imageUrl,
     });
   };
 
@@ -50,11 +72,17 @@ export default function CreateScenarioPage() {
 
   return (
     <CreateScenarioModule
+      authorEmail={user?.email}
       title={title}
       settings={settings}
       aiSetting={aiSetting}
       mission={mission}
       startingMessage={startingMessage}
+      imageUrl={imageUrl}
+      onGenClick={onGenClick}
+      isLoading={isLoading}
+      error={error}
+      isPending={isPending}
       onChangeTitle={onChangeTitle}
       onChangeSettings={onChangeSettings}
       onChangeAiSetting={onChangeAiSetting}

@@ -1,10 +1,12 @@
 import { auth } from "./auth";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function middleware() {
+export async function middleware(request: NextRequest) {
   const session = await auth();
   if (!session) {
-    return NextResponse.redirect("http://localhost:3000/login");
+    const url = request.nextUrl.clone();
+    url.pathname = '/login';
+    return NextResponse.redirect(url);
   }
 }
 

@@ -55,7 +55,7 @@ export default function Header() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href={"/talk"}>My Pub</Link>
+            <Link href={"/mypub"}>My Pub</Link>
           </li>
           <li>
             <Link href={"/create"}>Create</Link>

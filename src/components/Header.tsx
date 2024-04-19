@@ -23,7 +23,6 @@ export default function Header() {
       router.replace("/");
     });
   };
-  console.log(user)
 
   let authContent;
   if (status === "loading") {
@@ -56,7 +55,7 @@ export default function Header() {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link href={"/talk"}>Talk</Link>
+            <Link href={"/mypub"}>My Pub</Link>
           </li>
           <li>
             <Link href={"/create"}>Create</Link>

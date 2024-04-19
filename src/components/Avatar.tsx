@@ -23,9 +23,6 @@ export default function Avatar({nickname, onLogOut} : {nickname:string, onLogOut
             <a><strong>Welcome, {nickname}!</strong></a>
         </li>
         <li>
-          <Link href={'/profile'}>Profile</Link>
-        </li>
-        <li>
           <a onClick={onLogOut}>Logout</a>
         </li>
       </ul>

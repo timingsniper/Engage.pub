@@ -11,6 +11,16 @@ export async function getScenarios(pageId: number) {
   }
 }
 
+export async function getMyScenarios() {
+  try {
+    const response = await api.get(`/scenario/myScenarios`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching my scenarios: " + error);
+    throw error;
+  }
+}
+
 export async function getSingleScenario(scenarioId: number) {
   try {
     const response = await api.get(`/scenario/detail/${scenarioId}`);
@@ -40,7 +50,7 @@ export async function addScenario({
       startingMessage,
       imageUrl,
     };
-    console.log(data)
+    console.log(data);
     const response = await api.post(`/scenario`, data);
     return response.data;
   } catch (error) {

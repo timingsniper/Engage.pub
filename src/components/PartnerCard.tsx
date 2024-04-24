@@ -1,11 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import DeleteIcon from "./icons/DeleteIcon";
+import EditIcon from "./icons/EditIcon";
 
 type CardProps = {
   id: number;
   title: string;
   description: string;
   imgSrc: string;
+  myMode?: boolean;
 };
 
 export default function PartnerCard({
@@ -13,6 +16,7 @@ export default function PartnerCard({
   title,
   description,
   imgSrc,
+  myMode = false,
 }: CardProps) {
   return (
     <div className="card w-5/6 bg-base-100 shadow-xl">
@@ -29,6 +33,20 @@ export default function PartnerCard({
           <Link href={`/scenario/${id}`} passHref>
             <button className="btn bg-customBlue text-white">Engage!</button>
           </Link>
+          {myMode && (
+            <div>
+              <Link href={`/scenario/edit/${id}`} passHref>
+                <button className="btn mr-4">
+                  <EditIcon />
+                  Edit
+                </button>
+              </Link>
+              <button className="btn">
+                <DeleteIcon />
+                Delete
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

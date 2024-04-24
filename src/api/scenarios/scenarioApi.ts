@@ -59,6 +59,33 @@ export async function addScenario({
   }
 }
 
+export async function editScenario({
+  scenarioId,
+  title,
+  settings,
+  aiSetting,
+  mission,
+  startingMessage,
+  imageUrl,
+}: CreateScenarioModuleProps & { scenarioId: number }) {
+  try {
+    const data = {
+      title,
+      settings,
+      aiSetting,
+      mission,
+      startingMessage,
+      imageUrl,
+    };
+    console.log("Updating scenario:", data);
+    const response = await api.put(`/scenario/${scenarioId}`, data);
+    return response.data;
+  } catch (error) {
+    console.error("Error updating scenario: " + error);
+    throw error;
+  }
+}
+
 export async function getScenarioImageGen(settings: string, aiSetting: string) {
   try {
     const response = await api.post(`/scenario/imageGen`, {

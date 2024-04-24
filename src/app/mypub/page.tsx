@@ -49,6 +49,7 @@ export default function MyPubPage() {
                 title={scenario.title}
                 description={scenario.settings}
                 imgSrc={scenario.imgSource}
+                myMode={true}
               />
             ))
           )

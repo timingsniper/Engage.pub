@@ -3,4 +3,5 @@ export interface Message {
   content: string;
   feedback: string | null;
   translation: string | null;
+  saved? : boolean;
 }

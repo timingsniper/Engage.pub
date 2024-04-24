@@ -1,5 +1,6 @@
 import { Message } from "@/types/message";
 import { useState } from "react";
+import SavedIcon from "./icons/SavedIcon";
 
 interface MessageBubbleProps {
   msg: Message;
@@ -7,8 +8,12 @@ interface MessageBubbleProps {
 
 export default function MessageBubble({ msg }: MessageBubbleProps) {
   const [showTranslation, setShowTranslation] = useState(false);
+  const [saved, setSaved] = useState(msg?.saved || false);
   const toggleFeedback = () => {
     setShowTranslation(!showTranslation);
+  };
+  const toggleSaved = () => {
+    setSaved(!saved);
   };
   return (
     <>
@@ -28,12 +33,15 @@ export default function MessageBubble({ msg }: MessageBubbleProps) {
           {msg.content}
         </div>
       </div>
-      {(msg.translation && showTranslation) && (
+      {msg.translation && showTranslation && (
         <div className="flex justify-start">
           <div className="bg-gray-100 border-l-4 border-[#00c000] text-gray-600 py-2 px-4 rounded-r-lg max-w-xs md:max-w-md self-start mb-3 animate-fade-right">
             {msg.translation}
           </div>
         </div>
+      )}
+      {msg.role === "assistant" && (
+        <SavedIcon onClick={toggleSaved} fill={saved ? "#0077C0" : "none"} />
       )}
       {msg.feedback && msg.role === "user" && (
         <div className="flex justify-end">

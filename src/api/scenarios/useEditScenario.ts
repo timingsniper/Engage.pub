@@ -1,13 +1,14 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CreateScenarioModuleProps } from "@/types/CreateScenarioProps";
-import { addScenario } from "./scenarioApi";
+import { editScenario } from "./scenarioApi";
 import { useRouter } from "next/navigation";
 
-export function useAddScenario() {
+export function useEditScenario(scenarioId: number) {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const { mutate: createScenario, isPending } = useMutation({
+  const { mutate: modifyScenario, isPending } = useMutation({
     mutationFn: ({
+      scenarioId,
       authorEmail,
       title,
       settings,
@@ -15,26 +16,28 @@ export function useAddScenario() {
       mission,
       startingMessage,
       imageUrl,
-    }: CreateScenarioModuleProps) =>
-      addScenario({
+    }: CreateScenarioModuleProps & { scenarioId: number }) =>
+      editScenario({
+        scenarioId,
         authorEmail,
         title,
         settings,
         aiSetting,
         mission,
         startingMessage,
-        imageUrl
+        imageUrl,
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scenarios"] });
       queryClient.invalidateQueries({ queryKey: ["myScenario"] });
-      alert("Scenario succesfully created!");
-      router.push("/");
+      queryClient.invalidateQueries({ queryKey: ["scenario", scenarioId] });
+      alert("Scenario succesfully edited!");
+      router.push("/mypub");
     },
     onError: () => {
       alert("Failed to create scenario.");
     },
   });
 
-  return { createScenario, isPending };
+  return { modifyScenario, isPending };
 }

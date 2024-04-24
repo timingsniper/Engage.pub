@@ -23,8 +23,21 @@ export default function useSendMessage({
       const response: Message = {
         role: "assistant",
         content: newMsg.data.response,
+        feedback: null,
+        translation: newMsg.data.translation,
       };
-      setLocalConversation((oldConversation) => [...oldConversation, response]);
+      setLocalConversation((oldConversation) => {
+        const updatedConversation = [...oldConversation, response];
+        // Update the last user's message with the feedback received
+        if (
+          updatedConversation.length > 1 &&
+          updatedConversation[updatedConversation.length - 2].role === "user"
+        ) {
+          updatedConversation[updatedConversation.length - 2].feedback =
+            newMsg.data.feedback;
+        }
+        return updatedConversation;
+      });
     },
     onError: () => {
       setLocalConversation((oldConversation) => oldConversation.slice(0, -1));

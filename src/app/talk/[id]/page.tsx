@@ -30,6 +30,7 @@ export default function TalkPage({
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
+    console.log(localConversation);
   }, [localConversation]);
 
   if (initialLoading) {

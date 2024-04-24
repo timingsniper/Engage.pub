@@ -22,6 +22,8 @@ export default function ChatInput({
     const optimisticUpdate: Message = {
       role: "user",
       content: message,
+      feedback: null,
+      translation: null,
     };
     setLocalConversation((oldConversation) => [
       ...oldConversation,

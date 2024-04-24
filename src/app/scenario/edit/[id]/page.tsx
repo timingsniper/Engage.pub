@@ -1,17 +1,29 @@
 "use client";
 
+import { getScenarioImageGen } from "@/api/scenarios/scenarioApi";
+import { useEditScenario } from "@/api/scenarios/useEditScenario";
+import useSingleScenario from "@/api/scenarios/useSingleScenario";
+import CreateScenarioModule from "@/app/create/_component/CreateScenarioModule";
+import useUserStore from "@/stores/useUserStore";
 import {
   ChangeEventHandler,
   FormEventHandler,
   MouseEventHandler,
+  useEffect,
   useState,
 } from "react";
-import CreateScenarioModule from "./_component/CreateScenarioModule";
-import { useAddScenario } from "@/api/scenarios/useAddScenario";
-import useUserStore from "@/stores/useUserStore";
-import { getScenarioImageGen } from "@/api/scenarios/scenarioApi";
 
-export default function CreateScenarioPage() {
+type Props = {
+  params: { id: number };
+};
+
+export default function EditScenarioPage({ params }: Props) {
+  const scenarioId = params.id;
+  const {
+    isLoading: isFetching,
+    scenario,
+    error: fetchError,
+  } = useSingleScenario(scenarioId);
   const [title, setTitle] = useState<string>("");
   const [settings, setSettings] = useState("");
   const [aiSetting, setAiSetting] = useState("");
@@ -20,8 +32,18 @@ export default function CreateScenarioPage() {
   const [imageUrl, setImageUrl] = useState<string>("");
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
-  const { createScenario, isPending } = useAddScenario();
-  const { user } = useUserStore();
+  const { modifyScenario, isPending } = useEditScenario(scenarioId);
+
+  useEffect(() => {
+    if (scenario) {
+      setTitle(scenario.title);
+      setSettings(scenario.settings);
+      setAiSetting(scenario.aiSetting);
+      setMission(scenario.mission);
+      setStartingMessage(scenario.startingMessage);
+      setImageUrl(scenario.imgSource);
+    }
+  }, [scenario]);
 
   const onGenClick: MouseEventHandler<HTMLButtonElement> = async () => {
     try {
@@ -37,8 +59,8 @@ export default function CreateScenarioPage() {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    createScenario({
-      authorEmail: user?.email,
+    modifyScenario({
+      scenarioId,
       title,
       settings,
       aiSetting,
@@ -70,6 +92,14 @@ export default function CreateScenarioPage() {
     setStartingMessage(e.target.value);
   };
 
+  if (isFetching) {
+    return (
+      <div className="flex h-screen justify-center justify-items-center">
+        <span className="loading loading-spinner text-primary"></span>
+      </div>
+    );
+  }
+
   return (
     <CreateScenarioModule
       title={title}
@@ -88,6 +118,7 @@ export default function CreateScenarioPage() {
       onChangeMission={onChangeMission}
       onChangeStartingMessage={onChangeStartingMessage}
       onSubmit={onSubmit}
+      editMode={true}
     />
   );
 }

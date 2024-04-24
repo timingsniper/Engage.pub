@@ -1,5 +1,5 @@
 export interface CreateScenarioModuleProps {
-  authorEmail: string | null | undefined;
+  authorEmail?: string | null | undefined;
   title: string;
   settings: string;
   aiSetting: string;

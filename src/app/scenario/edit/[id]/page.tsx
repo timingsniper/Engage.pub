@@ -1,7 +1,6 @@
 "use client";
 
 import { getScenarioImageGen } from "@/api/scenarios/scenarioApi";
-import { useAddScenario } from "@/api/scenarios/useAddScenario";
 import { useEditScenario } from "@/api/scenarios/useEditScenario";
 import useSingleScenario from "@/api/scenarios/useSingleScenario";
 import CreateScenarioModule from "@/app/create/_component/CreateScenarioModule";
@@ -34,7 +33,6 @@ export default function EditScenarioPage({ params }: Props) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(false);
   const { modifyScenario, isPending } = useEditScenario(scenarioId);
-  const { user } = useUserStore();
 
   useEffect(() => {
     if (scenario) {
@@ -104,7 +102,6 @@ export default function EditScenarioPage({ params }: Props) {
 
   return (
     <CreateScenarioModule
-      authorEmail={user?.email}
       title={title}
       settings={settings}
       aiSetting={aiSetting}

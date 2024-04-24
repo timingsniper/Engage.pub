@@ -72,7 +72,6 @@ export default function CreateScenarioPage() {
 
   return (
     <CreateScenarioModule
-      authorEmail={user?.email}
       title={title}
       settings={settings}
       aiSetting={aiSetting}

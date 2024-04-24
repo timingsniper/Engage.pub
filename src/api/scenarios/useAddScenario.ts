@@ -27,6 +27,7 @@ export function useAddScenario() {
       }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["scenarios"] });
+      queryClient.invalidateQueries({ queryKey: ["myScenario"] });
       alert("Scenario succesfully created!");
       router.push("/");
     },

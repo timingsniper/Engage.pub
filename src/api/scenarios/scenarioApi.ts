@@ -86,6 +86,16 @@ export async function editScenario({
   }
 }
 
+export async function deleteScenario(scenarioId: number) {
+  try {
+    const response = await api.delete(`/scenario/${scenarioId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting scenario: " + error);
+    throw error;
+  }
+}
+
 export async function getScenarioImageGen(settings: string, aiSetting: string) {
   try {
     const response = await api.post(`/scenario/imageGen`, {

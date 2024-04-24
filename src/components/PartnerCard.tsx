@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import DeleteIcon from "./icons/DeleteIcon";
 import EditIcon from "./icons/EditIcon";
+import { useDeleteScenario } from "@/api/scenarios/useDeleteScenario";
+import { MouseEvent } from "react";
 
 type CardProps = {
   id: number;
@@ -18,6 +20,16 @@ export default function PartnerCard({
   imgSrc,
   myMode = false,
 }: CardProps) {
+  const { removeScenario, isPending } = useDeleteScenario();
+
+  const handleDelete = (event: MouseEvent<HTMLButtonElement>) => {
+    let confirmDelete = confirm(
+      "Are you sure you want to delete this scenario?"
+    );
+    if (!confirmDelete) return;
+    removeScenario(id);
+  };
+
   return (
     <div className="card w-5/6 bg-base-100 shadow-xl">
       <figure>
@@ -41,7 +53,11 @@ export default function PartnerCard({
                   Edit
                 </button>
               </Link>
-              <button className="btn">
+              <button
+                className="btn"
+                onClick={handleDelete}
+                disabled={isPending}
+              >
                 <DeleteIcon />
                 Delete
               </button>

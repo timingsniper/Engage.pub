@@ -43,6 +43,7 @@ export default function MessageBubble({ msg }: MessageBubbleProps) {
       {msg.role === "assistant" && (
         <SavedIcon onClick={toggleSaved} fill={saved ? "#0077C0" : "none"} />
       )}
+      {msg.role === "assistant" && console.log(msg)}
       {msg.feedback && msg.role === "user" && (
         <div className="flex justify-end">
           {msg.feedback !== "完美！" ? (

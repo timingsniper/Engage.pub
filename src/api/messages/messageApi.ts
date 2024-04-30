@@ -30,3 +30,13 @@ export async function getMessages() {
     throw error;
   }
 }
+
+export async function deleteMessage(messageId: number) {
+  try {
+    const response = await api.delete(`/message/${messageId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting message: " + error);
+    throw error;
+  }
+}

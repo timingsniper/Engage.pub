@@ -9,6 +9,7 @@ import { Conversation } from "@/types/conversation";
 import { savedMessage } from "@/types/savedMessage";
 import { Scenario } from "@/types/scenario";
 import { useState } from "react";
+import ExpressionCard from "./_component/ExpressionCard";
 
 export default function MyPubPage() {
   const [menu, setMenu] = useState("myScenarios");
@@ -87,18 +88,7 @@ export default function MyPubPage() {
             <ScenarioSkeleton />
           ) : (
             messages?.map((message: savedMessage) => (
-              <div
-                key={message.id}
-                className="card w-5/6 bg-base-100 shadow-xl mb-4"
-              >
-                <div className="card-body">
-                  <h2 className="card-title">{message.content}</h2>
-                  <p>{message.translation}</p>
-                  <div className="card-actions justify-end">
-                    <button className="btn btn-primary">Delete</button>
-                  </div>
-                </div>
-              </div>
+              <ExpressionCard key={message.id} message={message}/>
             ))
           )}
         </div>

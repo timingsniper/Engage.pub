@@ -1,7 +1,8 @@
 import { Message } from "@/types/message";
 import { useState } from "react";
 import SavedIcon from "./icons/SavedIcon";
-
+import { useParams } from "next/navigation";
+import { addMessage } from "@/api/messages/messageApi";
 interface MessageBubbleProps {
   msg: Message;
 }
@@ -9,11 +10,25 @@ interface MessageBubbleProps {
 export default function MessageBubble({ msg }: MessageBubbleProps) {
   const [showTranslation, setShowTranslation] = useState(false);
   const [saved, setSaved] = useState(msg?.saved || false);
+  const params = useParams();
+  const scenarioId = Number(params.id);
+
   const toggleFeedback = () => {
     setShowTranslation(!showTranslation);
   };
-  const toggleSaved = () => {
-    setSaved(!saved);
+  const toggleSaved = async () => {
+    try {
+      const response = await addMessage(
+        scenarioId,
+        "assistant",
+        msg.content,
+        msg.translation
+      );
+      console.log(response)
+      setSaved(!saved);
+    } catch (error) {
+      console.error("Error adding message: " + error);
+    }
   };
   return (
     <>
@@ -43,7 +58,6 @@ export default function MessageBubble({ msg }: MessageBubbleProps) {
       {msg.role === "assistant" && (
         <SavedIcon onClick={toggleSaved} fill={saved ? "#0077C0" : "none"} />
       )}
-      {msg.role === "assistant" && console.log(msg)}
       {msg.feedback && msg.role === "user" && (
         <div className="flex justify-end">
           {msg.feedback !== "完美！" ? (

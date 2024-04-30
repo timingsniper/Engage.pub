@@ -1,10 +1,12 @@
 "use client";
 
 import useMyConversations from "@/api/conversations/useMyConversations";
+import useMyMessages from "@/api/messages/useMyMessages";
 import useMyScenario from "@/api/scenarios/useMyScenario";
 import PartnerCard from "@/components/PartnerCard";
 import ScenarioSkeleton from "@/components/ScenarioSkeleton";
 import { Conversation } from "@/types/conversation";
+import { savedMessage } from "@/types/savedMessage";
 import { Scenario } from "@/types/scenario";
 import { useState } from "react";
 
@@ -16,6 +18,11 @@ export default function MyPubPage() {
     error: convError,
     isLoading: convLoading,
   } = useMyConversations({ fetchOnDemand: menu === "myConversations" });
+  const {
+    isLoading: msgLoading,
+    messages,
+    error: msgError,
+  } = useMyMessages(menu === "myExpressions");
 
   return (
     <section>
@@ -76,22 +83,24 @@ export default function MyPubPage() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center mx-6 mb-10">
-          <div className="card w-5/6 bg-base-100 shadow-xl mb-4">
-            <div className="card-body">
-              <h2 className="card-title">
-                Great choice! What are you planning to use your MacBook for? Do
-                you have a specific model in mind, or are you looking for
-                recommendations?
-              </h2>
-              <p>
-                很好的选择！您打算用 MacBook
-                做什么？您是否有特定的型号，或者您正在寻找建议？
-              </p>
-              <div className="card-actions justify-end">
-                <button className="btn btn-primary">Delete</button>
+          {msgLoading ? (
+            <ScenarioSkeleton />
+          ) : (
+            messages?.map((message: savedMessage) => (
+              <div
+                key={message.id}
+                className="card w-5/6 bg-base-100 shadow-xl mb-4"
+              >
+                <div className="card-body">
+                  <h2 className="card-title">{message.content}</h2>
+                  <p>{message.translation}</p>
+                  <div className="card-actions justify-end">
+                    <button className="btn btn-primary">Delete</button>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
+            ))
+          )}
         </div>
       )}
     </section>

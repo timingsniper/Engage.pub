@@ -1,47 +1,63 @@
 "use client";
 
 import useMyConversations from "@/api/conversations/useMyConversations";
+import useMyMessages from "@/api/messages/useMyMessages";
 import useMyScenario from "@/api/scenarios/useMyScenario";
 import PartnerCard from "@/components/PartnerCard";
 import ScenarioSkeleton from "@/components/ScenarioSkeleton";
 import { Conversation } from "@/types/conversation";
+import { savedMessage } from "@/types/savedMessage";
 import { Scenario } from "@/types/scenario";
 import { useState } from "react";
+import ExpressionCard from "./_component/ExpressionCard";
 
 export default function MyPubPage() {
-  const [isMyScenario, setIsMyScenario] = useState(true);
+  const [menu, setMenu] = useState("myScenarios");
   const { scenario, error, isLoading } = useMyScenario();
   const {
     conversations,
     error: convError,
     isLoading: convLoading,
-  } = useMyConversations({ fetchOnDemand: !isMyScenario });
+  } = useMyConversations({ fetchOnDemand: menu === "myConversations" });
+  const {
+    isLoading: msgLoading,
+    messages,
+    error: msgError,
+  } = useMyMessages(menu === "myExpressions");
 
   return (
     <section>
-      <ul className="menu menu-horizontal w-96 mb-4">
+      <ul className="menu menu-horizontal w-3/4 mb-4">
         <li>
           <a
-            className={isMyScenario ? "active" : ""}
-            onClick={() => setIsMyScenario(true)}
+            className={menu === "myScenarios" ? "active" : ""}
+            onClick={() => setMenu("myScenarios")}
           >
             My Scenarios
           </a>
         </li>
         <li>
           <a
-            className={!isMyScenario ? "active" : ""}
-            onClick={() => setIsMyScenario(false)}
+            className={menu === "myConversations" ? "active" : ""}
+            onClick={() => setMenu("myConversations")}
           >
             My Conversations
           </a>
         </li>
+        <li>
+          <a
+            className={menu === "myExpressions" ? "active" : ""}
+            onClick={() => setMenu("myExpressions")}
+          >
+            My Expressions
+          </a>
+        </li>
       </ul>
-      <div className="grid mx-6 mb-10 justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-6">
-        {isMyScenario ? (
-          isLoading ? (
+      {menu === "myScenarios" || menu === "myConversations" ? (
+        <div className="grid mx-6 mb-10 justify-items-center grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-x-6 gap-y-6">
+          {isLoading || convLoading ? (
             <ScenarioSkeleton />
-          ) : (
+          ) : menu === "myScenarios" ? (
             scenario?.map((scenario: Scenario) => (
               <PartnerCard
                 key={scenario.id}
@@ -52,23 +68,31 @@ export default function MyPubPage() {
                 myMode={true}
               />
             ))
-          )
-        ) : convLoading ? (
-          <ScenarioSkeleton />
-        ) : (
-          conversations?.map((conversation: Conversation) => (
-            <PartnerCard
-              key={conversation.id}
-              id={conversation.scenarioId}
-              title={conversation.scenarioTitle}
-              description={
-                conversation.goalMet ? "Goal met" : "Goal not yet met"
-              }
-              imgSrc={conversation.scenarioImgSource}
-            />
-          ))
-        )}
-      </div>
+          ) : (
+            conversations?.map((conversation: Conversation) => (
+              <PartnerCard
+                key={conversation.id}
+                id={conversation.scenarioId}
+                title={conversation.scenarioTitle}
+                description={
+                  conversation.goalMet ? "Goal met" : "Goal not yet met"
+                }
+                imgSrc={conversation.scenarioImgSource}
+              />
+            ))
+          )}
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center mx-6 mb-10">
+          {msgLoading ? (
+            <ScenarioSkeleton />
+          ) : (
+            messages?.map((message: savedMessage) => (
+              <ExpressionCard key={message.id} message={message}/>
+            ))
+          )}
+        </div>
+      )}
     </section>
   );
 }

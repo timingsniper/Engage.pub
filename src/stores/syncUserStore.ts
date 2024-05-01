@@ -8,7 +8,6 @@ import { useEffect } from "react";
 export const syncUserStore = () => {
   const { data: session } = useSession();
   const { setUser, clearUser } = useUserStore();
-  console.log(session)
   useEffect(() => {
     if (session?.user) {
       setUser({

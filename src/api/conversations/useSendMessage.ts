@@ -19,7 +19,7 @@ export default function useSendMessage({
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: (newMessage: string) =>
       api.post(`/conversation/${scenarioId}`, { message: newMessage }),
-    onSuccess: (newMsg) => {
+    onSuccess: async (newMsg) => {
       const response: Message = {
         role: "assistant",
         content: newMsg.data.response,
@@ -38,6 +38,10 @@ export default function useSendMessage({
         }
         return updatedConversation;
       });
+       if (newMsg.data.goalMet) {
+        console.log("Goal Met!!:", newMsg.data.goalMet); // Ensure this logs as expected
+        alert("Goal met!");
+      }
     },
     onError: () => {
       setLocalConversation((oldConversation) => oldConversation.slice(0, -1));

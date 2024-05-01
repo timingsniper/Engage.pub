@@ -50,7 +50,6 @@ export async function addScenario({
       startingMessage,
       imageUrl,
     };
-    console.log(data);
     const response = await api.post(`/scenario`, data);
     return response.data;
   } catch (error) {
@@ -77,7 +76,6 @@ export async function editScenario({
       startingMessage,
       imageUrl,
     };
-    console.log("Updating scenario:", data);
     const response = await api.put(`/scenario/${scenarioId}`, data);
     return response.data;
   } catch (error) {

@@ -9,12 +9,14 @@ interface SendMessageProps {
     updateFn: (oldConversation: Message[]) => Message[]
   ) => void;
   setShowError: (errorState: boolean) => void;
+  showModal: () => void;
 }
 
 export default function useSendMessage({
   scenarioId,
   setLocalConversation,
   setShowError,
+  showModal,
 }: SendMessageProps) {
   const { mutate: sendMessage, isPending: isSending } = useMutation({
     mutationFn: (newMessage: string) =>
@@ -36,12 +38,17 @@ export default function useSendMessage({
           updatedConversation[updatedConversation.length - 2].feedback =
             newMsg.data.feedback;
         }
+        // Count user messages
+        const userMessageCount = updatedConversation.filter(
+          (m) => m.role === "user"
+        ).length;
+
+        // Only show modal if more than 3 user messages have been sent and the goal is met
+        if (newMsg.data.goalMet && userMessageCount > 5) {
+          showModal();
+        }
         return updatedConversation;
       });
-       if (newMsg.data.goalMet) {
-        console.log("Goal Met!!:", newMsg.data.goalMet); // Ensure this logs as expected
-        alert("Goal met!");
-      }
     },
     onError: () => {
       setLocalConversation((oldConversation) => oldConversation.slice(0, -1));

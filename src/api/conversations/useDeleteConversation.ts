@@ -9,7 +9,6 @@ export function useDeleteConversation(scenarioId: number) {
     mutationFn: async () => await api.delete(`/conversation/${scenarioId}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["conversation", scenarioId] });
-      alert("Conversation successfully deleted!");
       router.refresh();
     },
     onError: (error) => {

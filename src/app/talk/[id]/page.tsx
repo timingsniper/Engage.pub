@@ -9,6 +9,8 @@ import ChatInput from "@/components/ChatInput";
 import Loader from "@/components/Loader";
 import { useDeleteConversation } from "@/api/conversations/useDeleteConversation";
 import { MouseEvent } from "react";
+import TalkCompleteModal from "./_component/TalkCompleteModal";
+import { useRouter } from "next/navigation";
 
 export default function TalkPage({
   params: { id },
@@ -16,8 +18,10 @@ export default function TalkPage({
   params: { id: number };
 }) {
   const [showError, setShowError] = useState<boolean>(false);
+  const modalRef = useRef<HTMLDialogElement>(null);
   const scenarioId = id;
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const { initialLoading, localConversation, setLocalConversation } =
     useConversation(scenarioId);
@@ -25,6 +29,7 @@ export default function TalkPage({
     scenarioId,
     setLocalConversation,
     setShowError,
+    showModal: () => modalRef?.current?.showModal(),
   });
   const { removeConversation, isPending } = useDeleteConversation(scenarioId);
 
@@ -34,6 +39,14 @@ export default function TalkPage({
     );
     if (!confirmDelete) return;
     removeConversation();
+  };
+
+  const handleEnd = (event: MouseEvent<HTMLAnchorElement>) => {
+    let confirmEnd = confirm(
+      "Are you sure you want to end the conversation and see the summary?"
+    );
+    if (!confirmEnd) return;
+    router.push(`/summary/${scenarioId}`)
   };
 
   useEffect(() => {
@@ -60,9 +73,12 @@ export default function TalkPage({
           </a>
         </li>
         <li>
-          <a className="bg-slate-400 text-white">End Conversation</a>
+          <a className="bg-slate-400 text-white" onClick={handleEnd}>
+            End Conversation
+          </a>
         </li>
       </ul>
+      <TalkCompleteModal scenarioId={scenarioId} ref={modalRef} />
       <ErrorAlert
         showError={showError}
         message="Failed to send message! Try again soon."

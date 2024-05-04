@@ -31,6 +31,16 @@ export async function getSingleScenario(scenarioId: number) {
   }
 }
 
+export async function getSharedConversations(scenarioId: number) {
+  try {
+    const response = await api.get(`/conversation/shared/${scenarioId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching shared conversations: " + error);
+    throw error;
+  }
+}
+
 export async function addScenario({
   authorEmail,
   title,

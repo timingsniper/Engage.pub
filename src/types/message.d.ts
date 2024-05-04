@@ -3,5 +3,6 @@ export interface Message {
   content: string;
   feedback: string | null;
   translation: string | null;
+  goalMet?: boolean;
   saved? : boolean;
 }

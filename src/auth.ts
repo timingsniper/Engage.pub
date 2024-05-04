@@ -33,10 +33,8 @@ export const {
 
         // Setting cookies sent from the backend
         let setCookie = authResponse.headers.get("Set-Cookie");
-        console.log(setCookie);
         if (setCookie) {
           const parsed = cookie.parse(setCookie);
-          console.log(parsed);
           cookies().set("connect.sid", parsed["connect.sid"], {
             domain: parsed.Domain,
             secure: process.env.APP_ENV === "production",

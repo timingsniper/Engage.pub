@@ -11,6 +11,7 @@ import { useDeleteConversation } from "@/api/conversations/useDeleteConversation
 import { MouseEvent } from "react";
 import TalkCompleteModal from "./_component/TalkCompleteModal";
 import { useRouter } from "next/navigation";
+import { useAddSharedConversation } from "@/api/conversations/useAddSharedConversation";
 
 export default function TalkPage({
   params: { id },
@@ -32,6 +33,8 @@ export default function TalkPage({
     showModal: () => modalRef?.current?.showModal(),
   });
   const { removeConversation, isPending } = useDeleteConversation(scenarioId);
+  const { createConversation, isPending: isSharing } =
+    useAddSharedConversation(scenarioId);
 
   const handleDelete = (event: MouseEvent<HTMLAnchorElement>) => {
     let confirmDelete = confirm(
@@ -41,12 +44,17 @@ export default function TalkPage({
     removeConversation();
   };
 
+  const handleShare = (event: MouseEvent<HTMLAnchorElement>) => {
+    let title = prompt("Please enter a title to describe your conversation.");
+    createConversation(title || "Untitled");
+  };
+
   const handleEnd = (event: MouseEvent<HTMLAnchorElement>) => {
     let confirmEnd = confirm(
       "Are you sure you want to end the conversation and see the summary?"
     );
     if (!confirmEnd) return;
-    router.push(`/summary/${scenarioId}`)
+    router.push(`/summary/${scenarioId}`);
   };
 
   useEffect(() => {
@@ -70,6 +78,15 @@ export default function TalkPage({
             onClick={handleDelete}
           >
             Reset Conversation
+          </a>
+        </li>
+        <li>
+          <a
+            className="bg-green-500 text-white mr-3"
+            onClick={handleShare}
+            aria-disabled={isSharing}
+          >
+            Share Conversation
           </a>
         </li>
         <li>

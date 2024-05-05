@@ -5,9 +5,13 @@ import { useParams } from "next/navigation";
 import { addMessage } from "@/api/messages/messageApi";
 interface MessageBubbleProps {
   msg: Message;
+  shared?: boolean;
 }
 
-export default function MessageBubble({ msg }: MessageBubbleProps) {
+export default function MessageBubble({
+  msg,
+  shared = false,
+}: MessageBubbleProps) {
   const [showTranslation, setShowTranslation] = useState(false);
   const [saved, setSaved] = useState(msg?.saved || false);
   const params = useParams();
@@ -24,7 +28,7 @@ export default function MessageBubble({ msg }: MessageBubbleProps) {
         msg.content,
         msg.translation
       );
-      console.log(response)
+      console.log(response);
       setSaved(!saved);
     } catch (error) {
       console.error("Error adding message: " + error);
@@ -55,7 +59,7 @@ export default function MessageBubble({ msg }: MessageBubbleProps) {
           </div>
         </div>
       )}
-      {msg.role === "assistant" && (
+      {(!shared && msg.role === "assistant") && (
         <SavedIcon onClick={toggleSaved} fill={saved ? "#0077C0" : "none"} />
       )}
       {msg.feedback && msg.role === "user" && (

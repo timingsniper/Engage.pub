@@ -2,6 +2,9 @@
 
 import useSingleScenario from "@/api/scenarios/useSingleScenario";
 import Link from "next/link";
+import SharedCard from "../_component/SharedCard";
+import useSharedConversation from "@/api/scenarios/useSharedConversation";
+import { SharedConversation } from "@/types/sharedConversation";
 
 type Props = {
   params: { id: number };
@@ -10,8 +13,13 @@ type Props = {
 export default function ScenarioDetail({ params }: Props) {
   const scenarioId = params.id;
   const { isLoading, scenario, error } = useSingleScenario(scenarioId);
+  const {
+    isLoading: sharedLoading,
+    sharedConvo,
+    error: sharedError,
+  } = useSharedConversation(scenarioId);
 
-  if (isLoading) {
+  if (isLoading || sharedLoading) {
     return (
       <div className="flex h-screen justify-center justify-items-center">
         <span className="loading loading-spinner text-primary"></span>
@@ -51,6 +59,16 @@ export default function ScenarioDetail({ params }: Props) {
             </Link>
           </div>
         </div>
+      </div>
+      <div className="flex flex-col mt-12">
+        <p className="text-xl font-bold">Shared Conversations</p>
+        {sharedConvo ? (
+          sharedConvo?.map((convo: SharedConversation) => (
+            <SharedCard key={convo.id} sharedConvo={convo} />
+          ))
+        ) : (
+          <p className="text-center mt-5">No shared conversation yet!</p>
+        )}
       </div>
     </section>
   );

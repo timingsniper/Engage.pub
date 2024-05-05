@@ -4,7 +4,7 @@ import { getScenarioImageGen } from "@/api/scenarios/scenarioApi";
 import { useEditScenario } from "@/api/scenarios/useEditScenario";
 import useSingleScenario from "@/api/scenarios/useSingleScenario";
 import CreateScenarioModule from "@/app/create/_component/CreateScenarioModule";
-import useUserStore from "@/stores/useUserStore";
+
 import {
   ChangeEventHandler,
   FormEventHandler,

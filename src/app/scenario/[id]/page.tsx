@@ -100,6 +100,7 @@ export default function ScenarioDetail({ params }: Props) {
           <RecommendationCard
             recommendation={recExpression}
             isExpression={true}
+            scenarioId={scenarioId}
           />
         )}
         <p className="text-xl font-bold">
@@ -123,6 +124,7 @@ export default function ScenarioDetail({ params }: Props) {
               key={index}
               recommendation={vocab}
               isExpression={false}
+              scenarioId={scenarioId}
             />
           ))
         )}

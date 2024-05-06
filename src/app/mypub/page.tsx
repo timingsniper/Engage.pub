@@ -10,6 +10,7 @@ import { savedMessage } from "@/types/savedMessage";
 import { Scenario } from "@/types/scenario";
 import { useState } from "react";
 import ExpressionCard from "./_component/ExpressionCard";
+import useMyVocabs from "@/api/messages/useMyVocabs";
 
 export default function MyPubPage() {
   const [menu, setMenu] = useState("myScenarios");
@@ -24,6 +25,11 @@ export default function MyPubPage() {
     messages,
     error: msgError,
   } = useMyMessages(menu === "myExpressions");
+  const {
+    isLoading: vocabLoading,
+    vocabs,
+    error: vocabError,
+  } = useMyVocabs(menu === "myVocabs");
 
   return (
     <section>
@@ -50,6 +56,14 @@ export default function MyPubPage() {
             onClick={() => setMenu("myExpressions")}
           >
             My Expressions
+          </a>
+        </li>
+        <li>
+          <a
+            className={menu === "myVocabs" ? "active" : ""}
+            onClick={() => setMenu("myVocabs")}
+          >
+            My Vocabularies
           </a>
         </li>
       </ul>
@@ -84,11 +98,19 @@ export default function MyPubPage() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center mx-6 mb-10">
-          {msgLoading ? (
+          {menu === "myExpressions" ? (
+            msgLoading ? (
+              <ScenarioSkeleton />
+            ) : (
+              messages?.map((message: savedMessage) => (
+                <ExpressionCard key={message.id} message={message} />
+              ))
+            )
+          ) : vocabLoading ? (
             <ScenarioSkeleton />
           ) : (
-            messages?.map((message: savedMessage) => (
-              <ExpressionCard key={message.id} message={message}/>
+            vocabs?.map((vocab: savedMessage) => (
+              <ExpressionCard key={vocab.id} message={vocab} isVocab={true}/>
             ))
           )}
         </div>

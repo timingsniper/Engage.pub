@@ -31,9 +31,29 @@ export async function getMessages() {
   }
 }
 
+export async function getVocabs() {
+  try {
+    const response = await api.get(`/message/vocab`);
+    return response.data;
+  } catch (error) {
+    console.error("Error getting messages: " + error);
+    throw error;
+  }
+}
+
 export async function deleteMessage(messageId: number) {
   try {
     const response = await api.delete(`/message/${messageId}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting message: " + error);
+    throw error;
+  }
+}
+
+export async function deleteVocab(vocabId: number) {
+  try {
+    const response = await api.delete(`/message/vocab/${vocabId}`);
     return response.data;
   } catch (error) {
     console.error("Error deleting message: " + error);

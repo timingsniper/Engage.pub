@@ -43,7 +43,7 @@ export default function ExpressionCard({
           <button
             className="btn btn-primary"
             onClick={isVocab ? handleDeleteVocab : handleDelete}
-            disabled={isPending}
+            disabled={isPending || vocabDeleting}
           >
             Delete
           </button>

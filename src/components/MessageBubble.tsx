@@ -3,6 +3,7 @@ import { useState } from "react";
 import SavedIcon from "./icons/SavedIcon";
 import { useParams } from "next/navigation";
 import { addMessage } from "@/api/messages/messageApi";
+import SoundIcon from "./icons/SoundIcon";
 interface MessageBubbleProps {
   msg: Message;
   shared?: boolean;
@@ -50,6 +51,7 @@ export default function MessageBubble({
           }`}
         >
           {msg.content}
+          <SoundIcon text={msg.content}/>
         </div>
       </div>
       {msg.translation && showTranslation && (

@@ -5,7 +5,7 @@ import useConversation from "@/api/conversations/useConversation";
 import useSendMessage from "@/api/conversations/useSendMessage";
 import MessageBubble from "@/components/MessageBubble";
 import ErrorAlert from "@/components/ErrorAlert";
-import ChatInput from "@/components/ChatInput";
+import ChatInput from "@/app/talk/[id]/_component/ChatInput";
 import Loader from "@/components/Loader";
 import { useDeleteConversation } from "@/api/conversations/useDeleteConversation";
 import { MouseEvent } from "react";

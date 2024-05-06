@@ -2,6 +2,7 @@ import { Message } from "@/types/message";
 import { UseMutateFunction } from "@tanstack/react-query";
 import { AxiosResponse } from "axios";
 import { useState } from "react";
+import VoiceToTextButton from "./VoiceToTextButton";
 
 interface ChatInputProps {
   setLocalConversation: (
@@ -33,7 +34,8 @@ export default function ChatInput({
     setMessage("");
   };
   return (
-    <div className="form-control mt-4">
+    <div className="form-control flex-row mt-4">
+      <VoiceToTextButton setMessage={setMessage} />
       <input
         type="text"
         placeholder="Type your message..."
@@ -48,10 +50,9 @@ export default function ChatInput({
       {isSending ? (
         <button className="btn" disabled>
           <span className="loading loading-spinner"></span>
-          Waiting Response..
         </button>
       ) : (
-        <button className="btn btn-primary mt-2" onClick={handleSend}>
+        <button className="btn btn-primary" onClick={handleSend}>
           Send
         </button>
       )}

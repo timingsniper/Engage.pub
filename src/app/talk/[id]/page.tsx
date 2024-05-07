@@ -70,14 +70,14 @@ export default function TalkPage({
 
   return (
     <section className="p-4">
-      <ul className="menu menu-horizontal w-3/4 mb-4">
+      <ul className="menu menu-horizontal w-full mb-4">
         <li>
           <a
             className="mr-3 bg-primary text-white"
             aria-disabled={isPending}
             onClick={handleDelete}
           >
-            Reset Conversation
+            Reset
           </a>
         </li>
         <li>
@@ -86,12 +86,12 @@ export default function TalkPage({
             onClick={handleShare}
             aria-disabled={isSharing}
           >
-            Share Conversation
+            Share
           </a>
         </li>
         <li>
           <a className="bg-slate-400 text-white" onClick={handleEnd}>
-            End Conversation
+            End
           </a>
         </li>
       </ul>

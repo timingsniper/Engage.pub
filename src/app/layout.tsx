@@ -23,10 +23,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <AuthSession>
-          <Header />
-          <PageView>
-            <ReactQueryProviders>{children}</ReactQueryProviders>
-          </PageView>
+          <ReactQueryProviders>
+            <Header />
+            <PageView>{children}</PageView>
+          </ReactQueryProviders>
           <Footer />
         </AuthSession>
       </body>

@@ -6,6 +6,7 @@ import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import useUserStore from "@/stores/useUserStore";
 import { syncUserStore } from "@/stores/syncUserStore";
+import useUserLevel from "@/api/user/useUserLevel";
 
 export default function Header() {
   const router = useRouter();
@@ -23,15 +24,16 @@ export default function Header() {
       router.replace("/");
     });
   };
+  const { isLoading, level, error } = useUserLevel();
 
   let authContent;
-  if (status === "loading") {
+  if (status === "loading" || isLoading) {
     authContent = (
       <span className="loading loading-spinner text-primary"></span>
     );
   } else if (user !== null) {
     authContent = (
-      <Avatar nickname={user?.name as string} onLogOut={onLogOut} />
+      <Avatar nickname={user?.name as string} onLogOut={onLogOut} userLevel={level}/>
     );
   } else {
     authContent = (

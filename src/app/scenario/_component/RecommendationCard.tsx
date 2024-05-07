@@ -19,15 +19,15 @@ export default function RecommendationCard({
   const saveRecommendation = (event: MouseEvent<HTMLButtonElement>) => {
     saveExpression({
       scenarioId,
-      content: recommendation.expression,
-      translation: recommendation.translation,
+      content: recommendation?.expression,
+      translation: recommendation?.translation,
     });
   };
   const saveVocabulary = (event: MouseEvent<HTMLButtonElement>) => {
     saveVocab({
       scenarioId,
-      content: recommendation.vocabulary,
-      translation: recommendation.translation,
+      content: recommendation?.vocabulary,
+      translation: recommendation?.translation,
     });
   };
   return (
@@ -36,11 +36,11 @@ export default function RecommendationCard({
         <h2 className="card-title">
           <p className="text-xl font-bold">
             {isExpression
-              ? recommendation.expression
-              : recommendation.vocabulary}
+              ? recommendation?.expression
+              : recommendation?.vocabulary}
           </p>
         </h2>
-        <p>{recommendation.translation}</p>
+        <p>{recommendation?.translation}</p>
         <div className="card-actions justify-end">
           <button
             className="btn btn-primary"

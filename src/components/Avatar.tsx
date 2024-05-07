@@ -1,6 +1,12 @@
-import Link from "next/link";
-
-export default function Avatar({nickname, onLogOut} : {nickname:string, onLogOut: () => void}) {
+export default function Avatar({
+  nickname,
+  onLogOut,
+  userLevel,
+}: {
+  nickname: string;
+  onLogOut: () => void;
+  userLevel: number | null;
+}) {
   return (
     <div className="dropdown dropdown-end">
       <div
@@ -20,7 +26,12 @@ export default function Avatar({nickname, onLogOut} : {nickname:string, onLogOut
         className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
       >
         <li>
-            <a><strong>Welcome, {nickname}!</strong></a>
+          <a>
+            <strong>Welcome, {nickname}!</strong>
+          </a>
+        </li>
+        <li>
+          <a>{`User Level: ${userLevel ? userLevel : "Unranked"}`}</a>
         </li>
         <li>
           <a onClick={onLogOut}>Logout</a>

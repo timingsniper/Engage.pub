@@ -18,7 +18,7 @@ export const {
     CredentialsProvider({
       async authorize(credentials) {
         const authResponse = await fetch(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/user/login`,
+          `${process.env.NEXT_PUBLIC_LOCALAUTH_URL}/user/login`,
           {
             method: "POST",
             headers: {
